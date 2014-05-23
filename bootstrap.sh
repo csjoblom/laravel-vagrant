@@ -19,7 +19,7 @@ rm -rf /var/www
 ln -fs /vagrant /var/www
 
 # add servname to httpd.conf
-echo "ServerName localhost" > /etc/apache2/httpd.conf
+echo "ServerName localhost" > /etc/apache2/conf-available/httpd.conf
 
 #Setup hosts file
 VHOST=$(cat <<EOF
@@ -87,7 +87,7 @@ cd /var/www
 composer install --dev
 #set up db
 echo "CREATE DATABASE IF NOT EXISTS lavatest" | mysql
-echo "CREAT USER 'csjoblom'@'localhost' IDENTIFIED BY 'chris'" | mysql
+echo "CREATE USER 'csjoblom'@'localhost' IDENTIFIED BY 'chris'" | mysql
 echo "GRANT ALL PRIVILEGES ON lavatest.* to 'csjoblom'@'localhost' IDENTIFIED BY 'chris'" | mysql
 php artisan migrate --env=development
 php artisan db:seed --env=development
